@@ -1,0 +1,7 @@
+---
+applications:
+- name: bubble-chart
+  path: target/bubble-0.0.1-SNAPSHOT.jar
+  services: 
+  - scdf-redis
+

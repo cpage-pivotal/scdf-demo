@@ -1,0 +1,5 @@
+spring:
+  rabbitmq:
+    host: rabbit-elb-1161026271.us-east-1.elb.amazonaws.com
+    username: corby
+    password: page
