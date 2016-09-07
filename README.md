@@ -16,6 +16,8 @@ The credentials you will need for this demo are:
 **Access Token**
 **Access Token Secret**
 
+# Deploy the Base Stream
+
 Navigate to the **scdf** space in the demo environment. If the stream has not been deployed, you will see two apps running:
 
 ![scdf space]
@@ -37,10 +39,24 @@ This gives a textual display of the available apps, but it is easier to demo wit
 
 ---
 
-Now you can show how to visually compose a stream by wiring one source, to one or more processors to one sink. When you are done, clicking the layout button will give a clearer view:
+Now you can show how to visually compose a stream by wiring the twitterstream source, to the trasnform processor, to the Redis sink. When you are done, clicking the layout button will give a clearer view:
 
 ![layout]
 (https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4.png?raw=true)
+
+---
+
+When you click on each app in the stream, you will see a gear icon in the lower left, and an X icon in the lower right. Clicking on the gear icon will allow you to set the properties for the app. In the Twitterstream app, enter your credentials for the app properties:
+
+![twitterstream-properties]
+(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4-1.png?raw=true)
+
+Also enter *tweets* for the Stream Name, and *en* for the Language.
+
+Next, configure the transform processor by entering *payload.text* for the Expression. This will extract the field which contains message text from the JSON document returned by the Twitter API.
+
+![transform-properties]
+(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4-2.png?raw=true)
 
 ---
 
@@ -48,6 +64,9 @@ Click back on the Definitions navtab to see the existing stream, tweets-demo14. 
 
 ![stream]
 (https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen5.png?raw=true)
+
+![stream-figure]
+(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen5-1.png?raw=true)
 
 ---
 
