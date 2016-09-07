@@ -58,10 +58,8 @@ Next, configure the transform processor by entering *payload.text* for the Expre
 ![transform-properties]
 (https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4-2.png?raw=true)
 
-Click on the "Create Stream" button to save your changes:
-![button]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/button.png?raw=true)
-
+Click on the ![button]
+(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/button.png?raw=true) button to save your changes:
 
 ---
 
