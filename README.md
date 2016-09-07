@@ -6,7 +6,7 @@ The Spring Cloud Data Flow Demo can be run in the orgs **S1Pdemo14**, **S1Pdemo1
 
 1. Install the Spring Cloud Dataflow Shell on your local machine. You can download the 1.0.0 version of the shell here: https://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-shell/1.0.0.RELEASE/spring-cloud-dataflow-shell-1.0.0.RELEASE.jar
 
-You can run the shell with `java -jar spring-cloud-dataflow-shell-1.0.0.RELEASE.jar`
+   You can run the shell with `java -jar spring-cloud-dataflow-shell-1.0.0.RELEASE.jar`
 
 2. Obtain your Twitter API credentials, if you don't already have them. You can generate these credentials at https://dev.twitter.com
 
@@ -89,7 +89,7 @@ Now we will create a branch off of this stream, known as a *tap* in SCDF, that c
 As with any piece of legacy domain logic, it is easy to wrap the Core NLP library in a Spring Boot app, and deploy it as a processor into SCDF. This is the new flow we will create:
 
 ![nlp-figure]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen6-1.png?raw=true)
+(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen6-2.png?raw=true)
 
 The tap reads a copy of the message emitted by the transform processor, performs language processing, and outputs the data to Redis.
 
