@@ -77,6 +77,36 @@ Click on the Deploy button, and then click Deploy on the subsequent screen to co
 
 Explain the benefits of having each of the microservices be managed by the platform. With no extra coding, you get manual or automatic scaling, routing, high availability, failover, logging and monitoring support for enterprise-level capabilities.
 
+Using either the command line or apps manager, tail the logfile for the log sink app that was deployed by SCDF. You will see about 20 Tweets per second streaming live:
+
+![tweet-feed]
+(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen6-1.png?raw=true)
+
+# Deploy the Analysis Stream
+
+Now we will create a branch off of this stream, known as a *tap* in SCDF, that concurrently performs natural language processing on the text of the tweets. We will use the open source Stanford Core NLP library, found here: http://stanfordnlp.github.io/CoreNLP/
+
+As with any piece of legacy domain logic, it is easy to wrap the Core NLP library in a Spring Boot app, and deploy it as a processor into SCDF. This is the new flow we will create:
+
+![nlp-figure]
+(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen6-1.png?raw=true)
+
+The tap reads a copy of the message emitted by the transform processor, performs language processing, and outputs the data to Redis.
+
+This time, we will use the command line to create the tap. Start the shell on your local machine, and point it at the SCDF environment by typing:
+
+`dataflow config server http://scdf-demo14.cfapps.io`
+
+If you type `stream list`, you will be able to see the currently deployed stream. Create the tap we described by typing:
+
+`stream create lang-analysis --definition ":tweets.transform > nlp | redis"`
+
+Deploy the stream by typing 
+
+`stream deploy lang-analysis`
+
+If you go back to the Apps Manager, you can see the two new microservices, nlp and redis, being deployed.
+
 ---
 
 Now, let's look at visualization of the data that was persisted to Redis. Click on the route for the "bubble-chart-demo14" app:
@@ -90,4 +120,4 @@ At the bottom of the screen, Refresh will update the view as the stream continue
 
 **TIP**: If the stream runs for a long time, the visualization performance may eventually get sluggish as the Redis store gets very large. Simply hit the Purge button, and everything will be snappy again.
 
-
+***IMPORTANT: At the end of your demo, please UNDEPLOY your streams. If you leave the streams running, the Redis store will grow very large, and make the next user unhappy.***
