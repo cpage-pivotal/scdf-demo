@@ -41,7 +41,7 @@ public class NlpServiceBean implements NlpService {
             if ( pos.startsWith( "NN" ) && !isHashtag( word ) && !word.equals( "rt" ) )
                 nounList.add( word );
 
-            if ( pos.startsWith( "VB" ) && !isHashtag( word ) && !word.equals( "be" ) )
+            if ( pos.startsWith( "VB" ) && !isHashtag( word ) )
                 verbList.add( word );
 
             if ( isHashtag( word ) && !word.equals( "#" ) )
