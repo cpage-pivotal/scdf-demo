@@ -11,10 +11,10 @@ The Spring Cloud Data Flow Demo can be run in the orgs **S1Pdemo14**, **S1Pdemo1
 2. Obtain your Twitter API credentials, if you don't already have them. You can generate these credentials at https://dev.twitter.com
 
 The credentials you will need for this demo are:
-**Consumer Key**
-**Consumer Secret**
-**Access Token**
-**Access Token Secret**
+* **Consumer Key**
+* **Consumer Secret**
+* **Access Token**
+* **Access Token Secret**
 
 # Deploy the Base Stream
 
