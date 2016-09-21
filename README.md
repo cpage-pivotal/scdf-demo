@@ -4,7 +4,7 @@ The Spring Cloud Data Flow Demo can be run in the orgs **S1Pdemo14**, **S1Pdemo1
 
 # Prerequisites
 
-1. Install the Spring Cloud Dataflow Shell on your local machine. You can download the 1.0.0 version of the shell here: https://repo.spring.io/libs-snapshot/org/springframework/cloud/spring-cloud-dataflow-shell/1.0.1.RELEASE/spring-cloud-dataflow-shell-1.0.1.RELEASE.jar
+1. Install the Spring Cloud Dataflow Shell on your local machine. You can download the 1.0.1 version of the shell here: https://repo.spring.io/libs-snapshot/org/springframework/cloud/spring-cloud-dataflow-shell/1.0.1.RELEASE/spring-cloud-dataflow-shell-1.0.1.RELEASE.jar
 
    You can run the shell with `java -jar spring-cloud-dataflow-shell-1.0.1.RELEASE.jar`
 
