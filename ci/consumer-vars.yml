@@ -1,0 +1,13 @@
+---
+# Target PCF environment where you will be running the demo
+CF_API: REPLACE_ME
+CF_USER: REPLACE_ME
+CF_PASSWORD: REPLACE_ME
+CF_ORG: REPLACE_ME
+CF_SPACE: REPLACE_ME
+CF_SKIP_SSL: REPLACE_ME
+
+# Parameters specific to the deployed stream apps
+CF_DOMAIN: REPLACE_ME
+CF_BUILDPACK: java_buildpack_offline
+CF_APP_NAME_PREFIX: demo

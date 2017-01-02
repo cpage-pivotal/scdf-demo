@@ -1,0 +1,64 @@
+---
+resources:
+
+- name: scdf-demo
+  type: git
+  source:
+    uri: https://github.com/cpage-pivotal/scdf-demo
+    branch: master
+    
+- name: scdf-server
+  type: s3
+  source:
+    bucket: scdf-apps
+    regexp: spring-cloud-dataflow-server-cloudfoundry-(.*).jar
+
+- name: nlp-proxy-processor
+  type: s3
+  source:
+    bucket: scdf-apps
+    regexp: nlp-proxy-processor-(.*).jar
+
+- name: redis-sink
+  type: s3
+  source:
+    bucket: scdf-apps
+    regexp: redis-sink-(.*).jar
+
+- name: pcf-env
+  type: cf
+  source:
+    api: {{CF_API}}
+    username: {{CF_USER}}
+    password: {{CF_PASSWORD}}
+    organization: {{CF_ORG}}
+    space: {{CF_SPACE}}
+    skip_cert_check: {{CF_SKIP_SSL}}
+    
+jobs:
+
+- name: deploy-scdf
+  plan:
+  - get: scdf-server
+    trigger: true
+    
+  - get: scdf-demo
+
+  - put: pcf
+    params:
+      manifest: scdf-demo/ci/manifest.yml
+      environment_variables:
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_URL: {{CF_API}}
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_ORG: {{CF_ORG}}
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SPACE: {{CF_SPACE}}
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_DOMAIN: {{CF_DOMAIN}} 
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_USERNAME: {{CF_USER}}
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_PASSWORD: {{CF_PASSWORD}}
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SKIP_SSL_VALIDATION: {{CF_SKIP_SSL}}
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_BUILDPACK: {{CF_BUILDPACK}}
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_MEMORY: 1024
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_SERVICES: scdf-redis,scdf-rabbit
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_APP_NAME_PREFIX: {{CF_APP_NAME_PREFIX}}
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_ENABLE_RANDOM_APP_NAME_PREFIX: false
+        MAVEN_REMOTE_REPOSITORIES_REPO1_URL: https://repo.spring.io/libs-snapshot
+
