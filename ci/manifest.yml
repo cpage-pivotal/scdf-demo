@@ -1,0 +1,9 @@
+---
+applications:
+- name: dataflow-server
+  host: scdf-demo14
+  memory: 2G
+  buildpack: java_buildpack
+  path: ../scdf-server/spring-cloud-dataflow-server-cloudfoundry-1.0.1.RELEASE.jar
+  services: 
+  - scdf-mysql
