@@ -18,12 +18,16 @@ resources:
 #- name: nlp-proxy-processor
 #  type: s3
 #  source:
+#    access_key_id: AKIAIVQSSOTGEE23A4HQ
+#    secret_access_key: 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
 #    bucket: scdf-apps
 #    regexp: nlp-proxy-processor-(.*).jar
 #
 #- name: redis-sink
 #  type: s3
 #  source:
+#    access_key_id: AKIAIVQSSOTGEE23A4HQ
+#    secret_access_key: 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
 #    bucket: scdf-apps
 #    regexp: redis-sink-(.*).jar
 
@@ -43,7 +47,7 @@ cf-params: &cf-params
   CF_SKIP_SSL: true
   CF_USERNAME: {{CF_USER}}
   CF_PASSWORD: {{CF_PASSWORD}}
-  CF_ORG: {{CF-ORG}}
+  CF_ORG: {{CF_ORG}}
   CF_SPACE: {{CF_SPACE}}
 
 jobs:
@@ -52,7 +56,7 @@ jobs:
   plan:
   - get: scdf-demo
   - task: prepare-cf-task
-    file: pipeline/ci/prepare-cf.yml
+    file: scdf-demo/ci/prepare-cf.yml
     params:
       <<: *cf-params
       CF_DB_SERVICE_NAME: {{DB_SERVICE_NAME}}
@@ -66,8 +70,7 @@ jobs:
   plan:
   - get: scdf-server
   - get: scdf-demo
-  - passed: prepare-cf
-
+    passed: [prepare-cf]
   - put: pcf-env
     params:
       manifest: scdf-demo/ci/manifest.yml
