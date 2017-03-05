@@ -1,0 +1,27 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: patrickcrocker/lotc
+    tag: 'latest'
+
+inputs:
+- name: scdf-demo
+
+outputs:
+- name: prepare-cf-output
+
+params:
+  CF_API_URL:
+  CF_SKIP_SSL:
+  CF_USERNAME:
+  CF_PASSWORD:
+  CF_ORG:
+  CF_SPACE:
+  CF_DB_SERVICE_NAME:
+  CF_DB_SERVICE_PLAN:
+
+run:
+  path: scdf-demo/ci/prepare-cf.sh
