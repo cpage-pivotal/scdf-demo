@@ -2,6 +2,6 @@
 applications:
 - name: dataflow-server
   memory: 2G
-  path: ../scdf-server/spring-cloud-dataflow-server-cloudfoundry-1.0.1.RELEASE.jar
+  path: ../scdf-server/spring-cloud-dataflow-server-cloudfoundry-1.1.1.RELEASE.jar
   services: 
   - scdf-mysql
