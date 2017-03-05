@@ -8,7 +8,7 @@ CF_SERVICE_PROVISION_TIMEOUT=${CF_SERVICE_PROVISION_TIMEOUT:-500}
 
 source $(dirname $0)/common.sh
 
-printf "Logging into PCF"
+printf "Logging into PCF\n"
 login $CF_API $CF_USER $CF_PASSWORD $CF_SKIP_SSL
 
 create=true
@@ -21,13 +21,13 @@ target_space $CF_SPACE $create
 if ! service_exists scdf-mysql; then
   cf create-service $DB_SERVICE_NAME $DB_SERVICE_PLAN scdf-mysql
 else
-  printf "MySQL service already exists; not creating"
+  printf "MySQL service already exists; not creating\n"
 fi
 
 if ! service_exists scdf-rabbit; then
   cf create-service $RABBIT_SERVICE_NAME $RABBIT_SERVICE_PLAN scdf-rabbit
 else
-  printf "Rabbit service already exists; not creating"
+  printf "Rabbit service already exists; not creating\n"
 fi
 
 if ! service_exists scdf-redis; then

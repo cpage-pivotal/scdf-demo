@@ -6,6 +6,8 @@ function login() {
   local cf_pass=$3
   local skip_ssl_validation=$4
 
+  printf "Endpoint: %s\nUser: %s\nPassword: %s\nSSL:%s\n" "$api_endpoint" "$cf_user" "$cf_pass" "$skip_ssl_validation"
+
   local cf_skip_ssl_validation=""
   if [ "$skip_ssl_validation" = "true" ]; then
     cf_skip_ssl_validation="--skip-ssl-validation"
