@@ -9,7 +9,7 @@ CF_SERVICE_PROVISION_TIMEOUT=${CF_SERVICE_PROVISION_TIMEOUT:-500}
 source $(dirname $0)/common.sh
 
 printf "Logging into PCF\n"
-login $CF_API $CF_USER $CF_PASSWORD $CF_SKIP_SSL
+login test hello $CF_API $CF_USER $CF_PASSWORD $CF_SKIP_SSL
 
 create=true
 UUID=$(uuidgen)
