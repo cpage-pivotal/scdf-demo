@@ -10,26 +10,10 @@ resources:
 - name: scdf-server
   type: s3
   source:
-    access_key_id: AKIAIVQSSOTGEE23A4HQ
-    secret_access_key: 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
+    access_key_id: {{AWS_ACCESS_KEY}}
+    secret_access_key: {{AWS_SECRET_KEY}}
     bucket: scdf-apps
     regexp: spring-cloud-dataflow-server-cloudfoundry-(.*).RELEASE.jar
-
-#- name: nlp-proxy-processor
-#  type: s3
-#  source:
-#    access_key_id: AKIAIVQSSOTGEE23A4HQ
-#    secret_access_key: 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
-#    bucket: scdf-apps
-#    regexp: nlp-proxy-processor-(.*).jar
-#
-#- name: redis-sink
-#  type: s3
-#  source:
-#    access_key_id: AKIAIVQSSOTGEE23A4HQ
-#    secret_access_key: 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
-#    bucket: scdf-apps
-#    regexp: redis-sink-(.*).jar
 
 - name: pcf-env
   type: cf
@@ -41,21 +25,21 @@ resources:
     space: {{CF_SPACE}}
     skip_cert_check: true
 
-
 cf-params: &cf-params
-  CF_API_URL: {{CF_API}}
+  CF_API: {{CF_API}}
   CF_SKIP_SSL: true
-  CF_USERNAME: {{CF_USER}}
+  CF_USER: {{CF_USER}}
   CF_PASSWORD: {{CF_PASSWORD}}
   CF_ORG: {{CF_ORG}}
   CF_SPACE: {{CF_SPACE}}
 
 jobs:
 
-- name: prepare-cf
+- name: deploy-scdf
   plan:
   - get: scdf-demo
-  - task: prepare-cf-task
+  - get: scdf-server
+  - task: prepare-cf
     file: scdf-demo/ci/prepare-cf.yml
     params:
       <<: *cf-params
@@ -65,20 +49,14 @@ jobs:
       CF_RABBIT_SERVICE_PLAN: {{RABBIT_SERVICE_PLAN}}
       CF_REDIS_SERVICE_NAME: {{REDIS_SERVICE_NAME}}
       CF_REDIS_SERVICE_PLAN: {{REDIS_SERVICE_PLAN}}
-
-- name: deploy-scdf
-  plan:
-  - get: scdf-server
-  - get: scdf-demo
-    passed: [prepare-cf]
   - put: pcf-env
     params:
-      manifest: scdf-demo/ci/manifest.yml
+      manifest: scdf-demo/ci/dataflow-server-manifest.yml
       environment_variables:
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_URL: {{CF_API}}
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_ORG: {{CF_ORG}}
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SPACE: {{CF_SPACE}}
-        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_DOMAIN: {{CF_DOMAIN}} 
+        SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_DOMAIN: {{CF_DOMAIN}}
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_USERNAME: {{CF_USER}}
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_PASSWORD: {{CF_PASSWORD}}
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SKIP_SSL_VALIDATION: {{CF_SKIP_SSL}}
@@ -89,3 +67,17 @@ jobs:
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_ENABLE_RANDOM_APP_NAME_PREFIX: "false"
         MAVEN_REMOTE_REPOSITORIES_REPO1_URL: https://repo.spring.io/libs-snapshot
 
+- name: deploy-bubble
+  plan:
+  - get: scdf-demo
+  - task: build-bubble
+    file: scdf-demo/ci/build-bubble.yml
+  - put: pcf-env
+    params:
+      manifest: scdf-demo/ci/bubble-manifest.yml
+
+- name: register-apps
+  plan:
+  - get: scdf-demo
+  - task: run-register-apps
+    file: scdf-demo/ci/run-register-apps.yml

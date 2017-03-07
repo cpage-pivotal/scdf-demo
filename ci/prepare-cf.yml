@@ -13,15 +13,5 @@ inputs:
 outputs:
 - name: prepare-cf-output
 
-params:
-  CF_API_URL:
-  CF_SKIP_SSL:
-  CF_USERNAME:
-  CF_PASSWORD:
-  CF_ORG:
-  CF_SPACE:
-  CF_DB_SERVICE_NAME:
-  CF_DB_SERVICE_PLAN:
-
 run:
   path: scdf-demo/ci/prepare-cf.sh

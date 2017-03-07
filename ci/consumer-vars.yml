@@ -8,17 +8,14 @@ CF_SPACE: REPLACE_ME
 CF_SKIP_SSL: REPLACE_ME
 
 # MySQL Service used by the SCDF Server
-DB_SERVICE: scdf-mysql
 DB_SERVICE_NAME: cleardb
 DB_SERVICE_PLAN: spark
 
 # RabbitMQ Service used by the SCDF Server
-RABBIT_SERVICE: scdf-rabbit
 RABBIT_SERVICE_NAME: p-rabbitmq
 RABBIT_SERVICE_PLAN: standard
 
 # Redis Service used by the SCDF Server
-REDIS_SERVICE: scdf-redis
 REDIS_SERVICE_NAME: p-redis
 REDIS_SERVICE_PLAN: dedicated-vm
 
@@ -26,3 +23,7 @@ REDIS_SERVICE_PLAN: dedicated-vm
 CF_DOMAIN: REPLACE_ME
 CF_BUILDPACK: java_buildpack_offline
 CF_APP_NAME_PREFIX: demo
+
+# AWS Access
+AWS_ACCESS_KEY: REPLACE_ME
+AWS_SECRET_KEY: REPLACE_ME

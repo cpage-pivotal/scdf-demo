@@ -1,0 +1,17 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: java
+    tag: '8'
+
+inputs:
+- name: register-apps
+
+outputs:
+- name: run-regiser-apps-output
+
+run:
+  path: scdf-demo/ci/run-regiser-apps.sh
