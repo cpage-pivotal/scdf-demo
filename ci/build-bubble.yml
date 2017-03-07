@@ -8,7 +8,7 @@ image_resource:
     tag: '8'
 
 inputs:
-- name: bubble
+- name: scdf-demo
 
 outputs:
 - name: build-bubble-output
