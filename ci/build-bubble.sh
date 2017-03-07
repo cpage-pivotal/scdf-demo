@@ -4,9 +4,9 @@
 
 set -e -x
 
-pushd bubble
+pushd scdf-demo/bubble
   ./mvnw package
 popd
 
-cp bubble/target/bubble-0.0.1-SNAPSHOT.jar build-bubble-output
+cp scdf-demo/bubble/target/bubble-0.0.1-SNAPSHOT.jar build-bubble-output
 
