@@ -39,7 +39,7 @@ This gives a textual display of the available apps, but it is easier to demo wit
 
 ---
 
-Now you can show how to visually compose a stream by wiring the twitterstream source, to the trasnform processor, to the log sink. When you are done, clicking the layout button will give a clearer view:
+Now you can show how to visually compose a stream by wiring the twitterstream source, to the transform processor, to the log sink. When you are done, clicking the layout button will give a clearer view:
 
 ![layout]
 (https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4.png?raw=true)
