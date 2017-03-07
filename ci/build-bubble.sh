@@ -5,7 +5,7 @@
 set -e -x
 
 pushd bubble
-  ./mvn package
+  ./mvnw package
 popd
 
 cp bubble/target/bubble-0.0.1-SNAPSHOT.jar build-bubble-output
