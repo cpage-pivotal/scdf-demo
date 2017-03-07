@@ -43,12 +43,12 @@ jobs:
     file: scdf-demo/ci/prepare-cf.yml
     params:
       <<: *cf-params
-      CF_DB_SERVICE_NAME: {{DB_SERVICE_NAME}}
-      CF_DB_SERVICE_PLAN: {{DB_SERVICE_PLAN}}
-      CF_RABBIT_SERVICE_NAME: {{RABBIT_SERVICE_NAME}}
-      CF_RABBIT_SERVICE_PLAN: {{RABBIT_SERVICE_PLAN}}
-      CF_REDIS_SERVICE_NAME: {{REDIS_SERVICE_NAME}}
-      CF_REDIS_SERVICE_PLAN: {{REDIS_SERVICE_PLAN}}
+      DB_SERVICE_NAME: {{DB_SERVICE_NAME}}
+      DB_SERVICE_PLAN: {{DB_SERVICE_PLAN}}
+      RABBIT_SERVICE_NAME: {{RABBIT_SERVICE_NAME}}
+      RABBIT_SERVICE_PLAN: {{RABBIT_SERVICE_PLAN}}
+      REDIS_SERVICE_NAME: {{REDIS_SERVICE_NAME}}
+      REDIS_SERVICE_PLAN: {{REDIS_SERVICE_PLAN}}
   - put: pcf-env
     params:
       manifest: scdf-demo/ci/dataflow-server-manifest.yml

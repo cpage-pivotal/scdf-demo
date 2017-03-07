@@ -8,10 +8,10 @@ image_resource:
     tag: '8'
 
 inputs:
-- name: register-apps
+- name: scdf-demo
 
 outputs:
 - name: run-regiser-apps-output
 
 run:
-  path: scdf-demo/ci/run-regiser-apps.sh
+  path: scdf-demo/ci/run-register-apps.sh

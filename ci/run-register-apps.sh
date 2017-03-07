@@ -4,7 +4,7 @@
 
 set -e -x
 
-pushd register-apps
+pushd scdf-demo/register-apps
   ./mvn package
   java -jar target/register-apps-0.0.1-SNAPSHOT.jar
 popd
