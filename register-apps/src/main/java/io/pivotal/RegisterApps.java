@@ -26,7 +26,7 @@ public class RegisterApps {
         return args -> {
 
             DataFlowTemplate dataFlowTemplate = new DataFlowTemplate(
-                    new URI("https://scdf-demo15.cfapps.io/"), _restTemplate);
+                    new URI("https://dataflow-server-lythraceous-chrysalid.cfapps.io/"), _restTemplate);
 
             AppRegistryOperations appRegistryOperations = dataFlowTemplate.appRegistryOperations();
             appRegistryOperations.register( "nlp", ApplicationType.processor,
