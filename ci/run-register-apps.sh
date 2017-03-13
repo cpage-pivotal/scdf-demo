@@ -5,6 +5,7 @@
 set -e -x
 
 printf "The value is: %s\n" "$CF_API"
+printf "The other value is: %s\n" "$CF_API2"
 
 pushd scdf-demo/register-apps
   ./mvnw package
