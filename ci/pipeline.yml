@@ -1,4 +1,12 @@
 ---
+resource_types:
+
+- name: maven-resource
+  type: docker-image
+  source:
+    repository: patrickcrocker/maven-resource
+    tag: latest
+
 resources:
 
 - name: scdf-demo
@@ -6,14 +14,12 @@ resources:
   source:
     uri: https://github.com/cpage-pivotal/scdf-demo
     branch: master
-    
+
 - name: scdf-server
-  type: s3
+  type: maven-resource
   source:
-    access_key_id: {{AWS_ACCESS_KEY}}
-    secret_access_key: {{AWS_SECRET_KEY}}
-    bucket: scdf-apps
-    regexp: spring-cloud-dataflow-server-cloudfoundry-(.*).RELEASE.jar
+    url: https://repo.spring.io/libs-release
+    artifact: org.springframework.cloud:spring-cloud-dataflow-server-cloudfoundry:jar::1.1.1.RELEASE
 
 - name: pcf-env
   type: cf
@@ -81,3 +87,5 @@ jobs:
   - get: scdf-demo
   - task: run-register-apps
     file: scdf-demo/ci/run-register-apps.yml
+    params:
+      <<: *cf-params

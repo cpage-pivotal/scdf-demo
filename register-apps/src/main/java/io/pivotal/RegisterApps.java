@@ -25,6 +25,8 @@ public class RegisterApps {
     public CommandLineRunner run() {
         return args -> {
 
+            System.out.println( "Cloud Foundry URL:" + System.getenv("SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_URL" ));
+
             DataFlowTemplate dataFlowTemplate = new DataFlowTemplate(
                     new URI("https://dataflow-server-lythraceous-chrysalid.cfapps.io/"), _restTemplate);
 
