@@ -4,7 +4,7 @@
 
 set -e -x
 
-echo "$CF_API"
+printf "The value is: %s\n" "$CF_API"
 
 pushd scdf-demo/register-apps
   ./mvnw package
