@@ -6,7 +6,7 @@ set -e -x
 
 pushd scdf-demo/register-apps
   ./mvnw package
-  java -jar target/register-apps-0.0.1-SNAPSHOT.jar
+  java -jar target/register-apps-0.0.1-SNAPSHOT.jar -DCF_API=$CF_API
 popd
 
 
