@@ -13,7 +13,6 @@ printf "The value is: %s\n" "$CF_API"
 login $CF_API $CF_USER $CF_PASSWORD $CF_SKIP_SSL
 
 create=true
-UUID=$(uuidgen)
 
 target_org $CF_ORG $create
 target_space $CF_SPACE $create
