@@ -4,6 +4,8 @@
 
 set -e -x
 
+env
+
 printf "The value is: %s\n" "$CF_API"
 printf "The other value is: %s\n" "$CF_API2"
 
