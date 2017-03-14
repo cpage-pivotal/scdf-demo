@@ -25,7 +25,8 @@ public class RegisterApps {
     public CommandLineRunner run() {
         return args -> {
 
-            System.out.println( "Cloud Foundry URL: " + System.getProperty("CF_API" ));
+            System.out.println( "Cloud Foundry URL: " + System.getProperty( "CF_API" ));
+            System.out.println( "Cloud Foundry URL: " + System.getenv("CF_API" ));
 
             DataFlowTemplate dataFlowTemplate = new DataFlowTemplate(
                     new URI("https://dataflow-server-lythraceous-chrysalid.cfapps.io/"), _restTemplate);

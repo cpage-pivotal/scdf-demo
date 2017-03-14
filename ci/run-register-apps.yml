@@ -6,16 +6,12 @@ image_resource:
   source:
     repository: openjdk
     tag: '8-jdk'
-    
+
 inputs:
 - name: scdf-demo
 
 outputs:
-- name: run-regiser-apps-output
-
-params:
-  CF_API:
-  CF_API2:
+- name: run-register-apps-output
 
 run:
   path: scdf-demo/ci/run-register-apps.sh

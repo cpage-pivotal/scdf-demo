@@ -4,14 +4,9 @@
 
 set -e -x
 
-env
-
-printf "The value is: %s\n" "$CF_API"
-printf "The other value is: %s\n" "$CF_API2"
-
 pushd scdf-demo/register-apps
   ./mvnw package
-  java -jar target/register-apps-0.0.1-SNAPSHOT.jar -DCF_API=$CF_API
+  java -jar target/register-apps-0.0.1-SNAPSHOT.jar -DCF_API=$CF_API -DCF_USER=$CF_USER -DCF_PASSWORD=$CF_PASSWORD -DCF_ORG=$CF_ORG -DCF_SPACE=$CF_SPACE
 popd
 
 
