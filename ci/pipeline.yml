@@ -41,7 +41,7 @@ cf-params: &cf-params
 
 jobs:
 
-- name: deploy-scdf
+- name: deploy-scdf-demo
   plan:
   - aggregate:
     - get: scdf-demo
@@ -82,22 +82,3 @@ jobs:
   - put: pcf-env
     params:
       manifest: scdf-demo/ci/bubble-manifest.yml
-
-#
-#
-#- name: deploy-bubble
-#  plan:
-#  - get: scdf-demo
-#  - task: build-bubble
-#    file: scdf-demo/ci/build-bubble.yml
-#  - put: pcf-env
-#    params:
-#      manifest: scdf-demo/ci/bubble-manifest.yml
-#
-#- name: register-apps
-#  plan:
-#  - get: scdf-demo
-#  - task: run-register-apps
-#    file: scdf-demo/ci/run-register-apps.yml
-#    params:
-#      <<: *cf-params

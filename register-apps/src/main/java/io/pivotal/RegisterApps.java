@@ -80,6 +80,6 @@ public class RegisterApps {
         Properties properties = PropertiesLoaderUtils.loadProperties(resource);
         appRegistryOperations.registerAll(properties, true);
 
-        System.out.println(appRegistryOperations.list().getContent().size() + " apps registered");
+        System.out.println(appRegistryOperations.list().getContent().size() + " starter apps registered");
     }
 }

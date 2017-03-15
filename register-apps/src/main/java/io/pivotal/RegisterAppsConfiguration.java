@@ -17,7 +17,6 @@ public class RegisterAppsConfiguration {
     @Bean
     ConnectionContext connectionContext(@Value("${CF_API}") String apiHost) {
         String hostName = apiHost.substring( apiHost.indexOf( "://" ) + 3 );
-        System.out.println( "Configuring Host: " + hostName );
 
         return DefaultConnectionContext.builder()
                 .apiHost(hostName)
