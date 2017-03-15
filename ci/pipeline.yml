@@ -43,8 +43,9 @@ jobs:
 
 - name: deploy-scdf
   plan:
-  - get: scdf-demo
-  - get: scdf-server
+  - aggregate:
+    - get: scdf-demo
+    - get: scdf-server
   - task: prepare-cf
     file: scdf-demo/ci/prepare-cf.yml
     params:
@@ -72,20 +73,32 @@ jobs:
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_APP_NAME_PREFIX: {{CF_APP_NAME_PREFIX}}
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_ENABLE_RANDOM_APP_NAME_PREFIX: "false"
         MAVEN_REMOTE_REPOSITORIES_REPO1_URL: https://repo.spring.io/libs-snapshot
-
-- name: deploy-bubble
-  plan:
-  - get: scdf-demo
-  - task: build-bubble
-    file: scdf-demo/ci/build-bubble.yml
+  - aggregate:
+      - task: build-bubble
+        file: scdf-demo/ci/build-bubble.yml
+      - task: run-register-apps
+        file: scdf-demo/ci/run-register-apps.yml
+        params:
+          <<: *cf-params
   - put: pcf-env
     params:
       manifest: scdf-demo/ci/bubble-manifest.yml
 
-- name: register-apps
-  plan:
-  - get: scdf-demo
-  - task: run-register-apps
-    file: scdf-demo/ci/run-register-apps.yml
-    params:
-      <<: *cf-params
+#
+#
+#- name: deploy-bubble
+#  plan:
+#  - get: scdf-demo
+#  - task: build-bubble
+#    file: scdf-demo/ci/build-bubble.yml
+#  - put: pcf-env
+#    params:
+#      manifest: scdf-demo/ci/bubble-manifest.yml
+#
+#- name: register-apps
+#  plan:
+#  - get: scdf-demo
+#  - task: run-register-apps
+#    file: scdf-demo/ci/run-register-apps.yml
+#    params:
+#      <<: *cf-params

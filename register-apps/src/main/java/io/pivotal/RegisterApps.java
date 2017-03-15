@@ -1,19 +1,8 @@
 package io.pivotal;
 
-import org.cloudfoundry.client.CloudFoundryClient;
-import org.cloudfoundry.client.v3.applications.Application;
-import org.cloudfoundry.doppler.DopplerClient;
 import org.cloudfoundry.operations.CloudFoundryOperations;
-import org.cloudfoundry.operations.DefaultCloudFoundryOperations;
 import org.cloudfoundry.operations.applications.ApplicationSummary;
-import org.cloudfoundry.reactor.ConnectionContext;
-import org.cloudfoundry.reactor.DefaultConnectionContext;
-import org.cloudfoundry.reactor.TokenProvider;
-import org.cloudfoundry.reactor.client.ReactorCloudFoundryClient;
-import org.cloudfoundry.reactor.tokenprovider.PasswordGrantTokenProvider;
-import org.cloudfoundry.uaa.UaaClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.cloud.dataflow.core.ApplicationType;
 import org.springframework.cloud.dataflow.rest.client.AppRegistryOperations;
@@ -24,80 +13,73 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import reactor.core.publisher.Flux;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 @Component
 public class RegisterApps {
 
-    @Autowired
-    private RestTemplate _restTemplate;
+    public static final String SERVER_APPLICATION_NAME = "dataflow-server";
+    public static final String NLP_PROCESSOR_URI = "https://s3.amazonaws.com/scdf-apps/nlp-proxy-processor-0.0.1-SNAPSHOT.jar";
+    public static final String REDIS_SINK_URI = "https://s3.amazonaws.com/scdf-apps/redis-sink-0.0.1-SNAPSHOT.jar";
+
+    private final RestTemplate _restTemplate;
+    private final CloudFoundryOperations _cloudFoundryOperations;
 
     @Autowired
-    private CloudFoundryOperations _cloudFoundryOperations;
+    public RegisterApps(RestTemplate restTemplate, CloudFoundryOperations cloudFoundryOperations) {
+        this._restTemplate = restTemplate;
+        this._cloudFoundryOperations = cloudFoundryOperations;
+    }
 
     @Bean
     public CommandLineRunner run() {
-        return args -> {
+        return (String... args) -> {
 
-//            String api = System.getenv("CF_API");
-//            String user = System.getenv("CF_USER");
-//            String password = System.getenv("CF_PASSWORD");
-//            String org = System.getenv("CF_ORG");
-//            String space = System.getenv("CF_SPACE");
+            Stream<ApplicationSummary> appStream = _cloudFoundryOperations.applications().list().toStream();
+            appStream.forEach(applicationSummary -> {
+                if (applicationSummary.getName().equals(SERVER_APPLICATION_NAME))
+                {
+                    URI serverUri;
+                    String hostname = applicationSummary.getUrls().get(0);
+                    System.out.println( "Server host: " + hostname );
+                    try {
+                        serverUri = new URI( "https://" + hostname);
 
-            _cloudFoundryOperations.applications().list().map(ApplicationSummary::getName).subscribe(System.out::println);
-
-            DataFlowTemplate dataFlowTemplate = new DataFlowTemplate(
-                    new URI("https://dataflow-server-lythraceous-chrysalid.cfapps.io/"), _restTemplate);
-
-            AppRegistryOperations appRegistryOperations = dataFlowTemplate.appRegistryOperations();
-            appRegistryOperations.register("nlp", ApplicationType.processor,
-                    "https://s3.amazonaws.com/scdf-apps/nlp-proxy-processor-0.0.1-SNAPSHOT.jar", true);
-            appRegistryOperations.register("redis", ApplicationType.sink,
-                    "https://s3.amazonaws.com/scdf-apps/redis-sink-0.0.1-SNAPSHOT.jar", true);
-
-            Resource resource = new ClassPathResource("appStarters.properties");
-            Properties properties = PropertiesLoaderUtils.loadProperties(resource);
-            appRegistryOperations.registerAll(properties, true);
-
-            System.out.println(appRegistryOperations.list().getContent().size() + " apps registered");
+                        try {
+                            registerApps(serverUri);
+                        } catch (IOException e) {
+                            throw new UncheckedIOException( e );
+                        }
+                    }
+                    catch ( URISyntaxException e ) {
+                        System.out.println( "Could not parse URI: " + hostname );
+                    }
+                }
+            });
         };
     }
 
-    @Bean
-    DefaultConnectionContext connectionContext(@Value("${CF_API}") String apiHost) {
-        return DefaultConnectionContext.builder()
-                .apiHost(apiHost)
-                .build();
-    }
+    private void registerApps(URI serverUri) throws URISyntaxException, IOException {
+        DataFlowTemplate dataFlowTemplate = new DataFlowTemplate(serverUri, _restTemplate);
 
-    @Bean
-    PasswordGrantTokenProvider tokenProvider(@Value("${CF_USER}") String username,
-                                             @Value("${CF_PASSWORD}") String password) {
-        return PasswordGrantTokenProvider.builder()
-                .password(password)
-                .username(username)
-                .build();
-    }
+        AppRegistryOperations appRegistryOperations = dataFlowTemplate.appRegistryOperations();
+        appRegistryOperations.register("nlp", ApplicationType.processor,
+                NLP_PROCESSOR_URI, true);
+        appRegistryOperations.register("redis", ApplicationType.sink,
+                REDIS_SINK_URI, true);
 
-    @Bean
-    ReactorCloudFoundryClient cloudFoundryClient(ConnectionContext connectionContext, TokenProvider tokenProvider) {
-        return ReactorCloudFoundryClient.builder()
-                .connectionContext(connectionContext)
-                .tokenProvider(tokenProvider)
-                .build();
-    }
+        Resource resource = new ClassPathResource("appStarters.properties");
+        Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+        appRegistryOperations.registerAll(properties, true);
 
-    @Bean
-    DefaultCloudFoundryOperations cloudFoundryOperations(CloudFoundryClient cloudFoundryClient,
-                                                         @Value("${CF_ORG}") String organization,
-                                                         @Value("${CF_SPACE}") String space) {
-        return DefaultCloudFoundryOperations.builder()
-                .cloudFoundryClient(cloudFoundryClient)
-                .organization(organization)
-                .space(space)
-                .build();
+        System.out.println(appRegistryOperations.list().getContent().size() + " apps registered");
     }
 }
