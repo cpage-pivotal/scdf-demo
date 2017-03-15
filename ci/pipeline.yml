@@ -73,13 +73,12 @@ jobs:
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_APP_NAME_PREFIX: {{CF_APP_NAME_PREFIX}}
         SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_ENABLE_RANDOM_APP_NAME_PREFIX: "false"
         MAVEN_REMOTE_REPOSITORIES_REPO1_URL: https://repo.spring.io/libs-snapshot
-  - aggregate:
-      - task: build-bubble
-        file: scdf-demo/ci/build-bubble.yml
-      - task: run-register-apps
-        file: scdf-demo/ci/run-register-apps.yml
-        params:
-          <<: *cf-params
+  - task: build-bubble
+    file: scdf-demo/ci/build-bubble.yml
+  - task: run-register-apps
+    file: scdf-demo/ci/run-register-apps.yml
+    params:
+      <<: *cf-params
   - put: pcf-env
     params:
       manifest: scdf-demo/ci/bubble-manifest.yml
