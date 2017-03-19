@@ -38,8 +38,7 @@ This gives a textual display of the available apps, but it is easier to demo wit
 
 Now you can show how to visually compose a stream by wiring the twitterstream source, to the transform processor, to the log sink. When you are done, clicking the layout button will give a clearer view:
 
-![layout]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4.png?raw=true)
+![layout](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4.png?raw=true)
 
 ---
 
@@ -60,25 +59,21 @@ Click on the Create Stream button to save your changes:
 
 Click back on the Definitions navtab to see the existing stream, tweets-demo14. Talk about the role of each of the apps in the stream:
 
-![stream]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen5.png?raw=true)
+![stream](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen5.png?raw=true)
 
-![stream-figure]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen5-1.png?raw=true)
+![stream-figure](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen5-1.png?raw=true)
 
 ---
 
 Click on the Deploy button, and then click Deploy on the subsequent screen to confirm deployment. This will start the process of launching the data microservices in Cloud Foundry that are needed to execute the stream:
 
-![microservices]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen6.png?raw=true)
+![microservices](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen6.png?raw=true)
 
 Explain the benefits of having each of the microservices be managed by the platform. With no extra coding, you get manual or automatic scaling, routing, high availability, failover, logging and monitoring support for enterprise-level capabilities.
 
 Using either the command line or apps manager, tail the logfile for the log sink app that was deployed by SCDF. You will see about 20 Tweets per second streaming live:
 
-![tweet-feed]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen6-1.png?raw=true)
+![tweet-feed](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen6-1.png?raw=true)
 
 # Deploy the Analysis Stream
 
@@ -86,8 +81,7 @@ Now we will create a branch off of this stream, known as a *tap* in SCDF, that c
 
 As with any piece of legacy domain logic, it is easy to wrap the Core NLP library in a Spring Boot app, and deploy it as a processor into SCDF. This is the new flow we will create:
 
-![nlp-figure]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen6-2.png?raw=true)
+![nlp-figure](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen6-2.png?raw=true)
 
 The tap reads a copy of the message emitted by the transform processor, performs language processing, and outputs the data to Redis.
 
@@ -109,8 +103,7 @@ If you go back to the Apps Manager, you can see the two new microservices, nlp a
 
 Now, let's look at visualization of the data that was persisted to Redis. Click on the route for the "bubble-chart-demo14" app:
 
-![bubble]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen7.png?raw=true)
+![bubble](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen7.png?raw=true)
 
 Mouse over the individual bubbles to see the keywords that have been tabulated. You can use the "All Words" and "Parts of Speech" buttons to switch views of the data.
 
