@@ -20,8 +20,7 @@ The credentials you will need for this demo are:
 
 Navigate to the **scdf** space in the demo environment. If the stream has not been deployed, you will see two apps running:
 
-![scdf space]
-(https://raw.githubusercontent.com/cpage-pivotal/scdf-demo/master/doc-images/screen1.png)
+![](https://raw.githubusercontent.com/cpage-pivotal/scdf-demo/master/doc-images/screen1.png)
 
 ---
 
