@@ -1,11 +1,11 @@
 ---
 # Target PCF environment where you will be running the demo
-CF_API: https://api.run.pivotal.io
-CF_USER: s1pcfdemo14@gmail.com
-CF_PASSWORD: paasword!
-CF_ORG: S1Pdemo14
-CF_SPACE: scdf
-CF_SKIP_SSL: false
+CF_API: REPLACE_ME
+CF_USER: REPLACE_ME
+CF_PASSWORD: REPLACE_ME
+CF_ORG: REPLACE_ME
+CF_SPACE: REPLACE_ME
+CF_SKIP_SSL: REPLACE_ME  # true or false
 
 # MySQL Service used by the SCDF Server
 DB_SERVICE_NAME: REPLACE_ME  # e.g. p-mysql
