@@ -1,29 +1,25 @@
 ---
 # Target PCF environment where you will be running the demo
-CF_API: REPLACE_ME
-CF_USER: REPLACE_ME
-CF_PASSWORD: REPLACE_ME
-CF_ORG: REPLACE_ME
-CF_SPACE: REPLACE_ME
-CF_SKIP_SSL: REPLACE_ME
+CF_API: https://api.run.pivotal.io
+CF_USER: s1pcfdemo14@gmail.com
+CF_PASSWORD: paasword!
+CF_ORG: S1Pdemo14
+CF_SPACE: scdf
+CF_SKIP_SSL: false
 
 # MySQL Service used by the SCDF Server
-DB_SERVICE_NAME: cleardb
-DB_SERVICE_PLAN: spark
+DB_SERVICE_NAME: REPLACE_ME  # e.g. p-mysql
+DB_SERVICE_PLAN: REPLACE_ME  # e.g. 100mb-dev
 
 # RabbitMQ Service used by the SCDF Server
-RABBIT_SERVICE_NAME: p-rabbitmq
-RABBIT_SERVICE_PLAN: standard
+RABBIT_SERVICE_NAME: REPLACE_ME # e.g. p-rabbitmq
+RABBIT_SERVICE_PLAN: REPLACE_ME # e.g. standard
 
 # Redis Service used by the SCDF Server
-REDIS_SERVICE_NAME: p-redis
-REDIS_SERVICE_PLAN: dedicated-vm
+REDIS_SERVICE_NAME: REPLACE_ME # e.g. p-redis
+REDIS_SERVICE_PLAN: REPLACE_ME # e.g. dedicated-vm
 
 # Parameters specific to the deployed stream apps
-CF_DOMAIN: REPLACE_ME
-CF_BUILDPACK: java_buildpack_offline
-CF_APP_NAME_PREFIX: demo
-
-# AWS Access
-AWS_ACCESS_KEY: REPLACE_ME
-AWS_SECRET_KEY: REPLACE_ME
+CF_DOMAIN: cfapps.io           # The domain used by deployed apps in your cf env (e.g. cfapps.io)
+CF_BUILDPACK: REPLACE_ME       # The name of the java buildpack used by your environment
+CF_APP_NAME_PREFIX: REPLACE_ME # A unique identifier that will prefix the name of your deployed SCDF apps
