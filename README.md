@@ -1,6 +1,11 @@
 # Spring Cloud Dataflow Demo
 
-The Spring Cloud Data Flow Demo can be run in the orgs **S1Pdemo14**, **S1Pdemo15**, and **S1Pdemo16** on Pivotal Web Services (If you need the credentials for these environments, contact Corby Page or Phil Berman). I will use the URLs for **S1Pdemo14** below, but you can change the number 14 to 15 or 16 to run in the other environments.
+There are two supported ways to run this demo: in a hosted environment, or in your own environment.
+
+* **Hosted**. The Spring Cloud Data Flow Demo can be run in the orgs **S1Pdemo14**, **S1Pdemo15**, and **S1Pdemo16** on Pivotal Web Services (If you need the credentials for these environments, contact Corby Page or Phil Berman).
+* **Your own environment**. This demo comes with a concourse pipeline for installing all demo assets onto your own PCF environment. Instructions for this pipeline are found here: https://github.com/cpage-pivotal/scdf-demo/tree/master/ci
+
+The instructions below will assume your are running in the hosted **S1Pdemo14** environment, but they are easily adapted to use the URLs, org, and space for whatever environment you choose.
 
 # Prerequisites
 
