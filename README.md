@@ -4,9 +4,9 @@ The Spring Cloud Data Flow Demo can be run in the orgs **S1Pdemo14**, **S1Pdemo1
 
 # Prerequisites
 
-1. Install the Spring Cloud Dataflow Shell on your local machine. You can download the 1.0.1 version of the shell here: https://repo.spring.io/libs-snapshot/org/springframework/cloud/spring-cloud-dataflow-shell/1.0.1.RELEASE/spring-cloud-dataflow-shell-1.0.1.RELEASE.jar
+1. Install the Spring Cloud Dataflow Shell on your local machine. You can download the 1.1.4 version of the shell here: https://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-shell/1.1.4.RELEASE/spring-cloud-dataflow-shell-1.1.4.RELEASE.jar
 
-   You can run the shell with `java -jar spring-cloud-dataflow-shell-1.0.1.RELEASE.jar`
+   You can run the shell with `java -jar spring-cloud-dataflow-shell-1.1.4.RELEASE.jar`
 
 2. Obtain your Twitter API credentials, if you don't already have them. You can generate these credentials at https://dev.twitter.com
 
@@ -21,7 +21,7 @@ The credentials you will need for this demo are:
 Navigate to the **scdf** space in the demo environment. If the stream has not been deployed, you will see two apps running:
 
 ![scdf space]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen1.png?raw=true)
+(https://raw.githubusercontent.com/cpage-pivotal/scdf-demo/master/doc-images/screen1.png)
 
 ---
 
