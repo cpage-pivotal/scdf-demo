@@ -26,15 +26,13 @@ Navigate to the **scdf** space in the demo environment. If the stream has not be
 
 To access the Web UI, append /dashboard to the route for the dataflow-server. In this case, http://scdf-demo14.cfapps.io/dashboard:
 
-![dashboard]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen2.png?raw=true)
+![dashboard](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen2.png?raw=true)
 
 ---
 
 This gives a textual display of the available apps, but it is easier to demo with a graphical view. Click on the Streams header nav at the top of the screen, and then click on the "Create Stream" navtab next to Definitions:
 
-![flo]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen3.png?raw=true)
+![flo](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen3.png?raw=true)
 
 ---
 
@@ -47,15 +45,13 @@ Now you can show how to visually compose a stream by wiring the twitterstream so
 
 When you click on each app in the stream, you will see a gear icon in the lower left, and an X icon in the lower right. Clicking on the gear icon will allow you to set the properties for the app. In the Twitterstream app, enter your credentials for the app properties:
 
-![twitterstream-properties]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4-1.png?raw=true)
+![twitterstream-properties](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4-1.png?raw=true)
 
 Also enter *tweets* for the Stream Name, and *en* for the Language.
 
 Next, configure the transform processor by entering *payload.text* for the Expression. This will extract the field which contains message text from the JSON document returned by the Twitter API.
 
-![transform-properties]
-(https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4-2.png?raw=true)
+![transform-properties](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/screen4-2.png?raw=true)
 
 Click on the Create Stream button to save your changes:
 
