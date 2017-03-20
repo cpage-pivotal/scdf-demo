@@ -9,7 +9,7 @@ Your target CF environment must have the following services available in the mar
 * Redis
 * RabbitMQ
 
-## Executing the Pipeline
+## Deploying the Demo
 
 Clone this repo onto your local environment, and edit **ci/consumer-vars.yml**. This is where you will enter all the configuration information specific to your environment.
 
@@ -25,6 +25,20 @@ Click on the deploy-scdf-demo job:
 
 ![](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/pipe2.png)
 
-Then click on the + sign to start a build. The build should complete in under 15 minutes.
+Then click on the + sign to start a build.
 
 Now you are ready to run the demo! Follow the instructions on the main page: https://github.com/cpage-pivotal/scdf-demo
+
+## Tearing Down the Demo
+
+When you no longer need the demo environment, you can execute the tear-down-scdf-demo job to delete the apps and services. From the Concourse dashboard:
+
+![](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/pipe3.png)
+
+Click on the tear-down-scdf-demo job:
+
+![](https://github.com/cpage-pivotal/scdf-demo/blob/master/doc-images/pipe4.png)
+
+Then click on the + sign to start a build.
+
+This will free up the resources consumed by the demo.
