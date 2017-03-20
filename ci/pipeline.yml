@@ -7,6 +7,12 @@ resource_types:
     repository: patrickcrocker/maven-resource
     tag: latest
 
+- name: cf-cli-resource
+  type: docker-image
+  source:
+    repository: patrickcrocker/cf-cli-resource
+    tag: latest
+
 resources:
 
 - name: scdf-demo
@@ -22,6 +28,16 @@ resources:
     artifact: org.springframework.cloud:spring-cloud-dataflow-server-cloudfoundry:jar::1.1.1.RELEASE
 
 - name: pcf-env
+  type: cf-cli-resource
+  source:
+    api: {{CF_API}}
+    username: {{CF_USER}}
+    password: {{CF_PASSWORD}}
+#    organization: {{CF_ORG}}
+#    space: {{CF_SPACE}}
+    skip_cert_check: true
+
+- name: pcf-env-params
   type: cf
   source:
     api: {{CF_API}}
@@ -46,17 +62,44 @@ jobs:
   - aggregate:
     - get: scdf-demo
     - get: scdf-server
-  - task: prepare-cf
-    file: scdf-demo/ci/prepare-cf.yml
+#  - task: prepare-cf
+#    file: scdf-demo/ci/prepare-cf.yml
+#    params:
+#      <<: *cf-params
+#      DB_SERVICE_NAME: {{DB_SERVICE_NAME}}
+#      DB_SERVICE_PLAN: {{DB_SERVICE_PLAN}}
+#      RABBIT_SERVICE_NAME: {{RABBIT_SERVICE_NAME}}
+#      RABBIT_SERVICE_PLAN: {{RABBIT_SERVICE_PLAN}}
+#      REDIS_SERVICE_NAME: {{REDIS_SERVICE_NAME}}
+#      REDIS_SERVICE_PLAN: {{REDIS_SERVICE_PLAN}}
+  - put: cf-create-service
+    resource: pcf-env
     params:
-      <<: *cf-params
-      DB_SERVICE_NAME: {{DB_SERVICE_NAME}}
-      DB_SERVICE_PLAN: {{DB_SERVICE_PLAN}}
-      RABBIT_SERVICE_NAME: {{RABBIT_SERVICE_NAME}}
-      RABBIT_SERVICE_PLAN: {{RABBIT_SERVICE_PLAN}}
-      REDIS_SERVICE_NAME: {{REDIS_SERVICE_NAME}}
-      REDIS_SERVICE_PLAN: {{REDIS_SERVICE_PLAN}}
-  - put: pcf-env
+      create_service:
+        org: {{CF_ORG}}
+        space: {{CF_SPACE}}
+        service: {{DB_SERVICE_NAME}}
+        plan: {{DB_SERVICE_PLAN}}
+        service_instance: scdf-mysql
+  - put: cf-create-service
+    resource: pcf-env
+    params:
+      create_service:
+        org: {{CF_ORG}}
+        space: {{CF_SPACE}}
+        service: {{RABBIT_SERVICE_NAME}}
+        plan: {{RABBIT_SERVICE_PLAN}}
+        service_instance: scdf-rabbit
+  - put: cf-create-service
+    resource: pcf-env
+    params:
+      create_service:
+        org: {{CF_ORG}}
+        space: {{CF_SPACE}}
+        service: {{REDIS_SERVICE_NAME}}
+        plan: {{REDIS_SERVICE_PLAN}}
+        service_instance: scdf-redis
+  - put: pcf-env-params
     params:
       manifest: scdf-demo/ci/dataflow-server-manifest.yml
       environment_variables:
@@ -79,6 +122,51 @@ jobs:
     file: scdf-demo/ci/run-register-apps.yml
     params:
       <<: *cf-params
-  - put: pcf-env
+  - put: cf-push
+    resource: pcf-env
     params:
-      manifest: scdf-demo/ci/bubble-manifest.yml
+      push:
+        org: {{CF_ORG}}
+        space: {{CF_SPACE}}
+        app_name: bubble-chart
+        manifest: scdf-demo/ci/bubble-manifest.yml
+
+- name: tear-down-scdf-demo
+  plan:
+  - put: cf-delete
+    resource: pcf-env
+    params:
+      delete:
+        org: {{CF_ORG}}
+        space: {{CF_SPACE}}
+        app_name: dataflow-server
+        delete_mapped_routes: true
+  - put: cf-delete
+    resource: pcf-env
+    params:
+      delete:
+        org: {{CF_ORG}}
+        space: {{CF_SPACE}}
+        app_name: bubble-chart
+        delete_mapped_routes: true
+  - put: cf-delete-service
+    resource: pcf-env
+    params:
+      delete_service:
+        org: {{CF_ORG}}
+        space: {{CF_SPACE}}
+        service_instance: scdf-mysql
+  - put: cf-delete-service
+    resource: pcf-env
+    params:
+      delete_service:
+        org: {{CF_ORG}}
+        space: {{CF_SPACE}}
+        service_instance: scdf-rabbit
+  - put: cf-delete-service
+    resource: pcf-env
+    params:
+      delete_service:
+        org: {{CF_ORG}}
+        space: {{CF_SPACE}}
+        service_instance: scdf-redis

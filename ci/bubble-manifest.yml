@@ -1,7 +1,6 @@
 ---
 applications:
-- name: bubble-chart
-  random-route: true
+- random-route: true
   memory: 1G
   path: ../../build-bubble-output/bubble-0.0.1-SNAPSHOT.jar
   services: 
