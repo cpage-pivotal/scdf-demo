@@ -33,8 +33,6 @@ resources:
     api: {{CF_API}}
     username: {{CF_USER}}
     password: {{CF_PASSWORD}}
-#    organization: {{CF_ORG}}
-#    space: {{CF_SPACE}}
     skip_cert_check: true
 
 - name: pcf-env-params
@@ -62,16 +60,6 @@ jobs:
   - aggregate:
     - get: scdf-demo
     - get: scdf-server
-#  - task: prepare-cf
-#    file: scdf-demo/ci/prepare-cf.yml
-#    params:
-#      <<: *cf-params
-#      DB_SERVICE_NAME: {{DB_SERVICE_NAME}}
-#      DB_SERVICE_PLAN: {{DB_SERVICE_PLAN}}
-#      RABBIT_SERVICE_NAME: {{RABBIT_SERVICE_NAME}}
-#      RABBIT_SERVICE_PLAN: {{RABBIT_SERVICE_PLAN}}
-#      REDIS_SERVICE_NAME: {{REDIS_SERVICE_NAME}}
-#      REDIS_SERVICE_PLAN: {{REDIS_SERVICE_PLAN}}
   - put: cf-create-service
     resource: pcf-env
     params:
