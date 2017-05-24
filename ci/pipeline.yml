@@ -4,13 +4,13 @@ resource_types:
 - name: maven-resource
   type: docker-image
   source:
-    repository: patrickcrocker/maven-resource
+    repository: pivotalpa/maven-resource
     tag: latest
 
 - name: cf-cli-resource
   type: docker-image
   source:
-    repository: patrickcrocker/cf-cli-resource
+    repository: pivotalpa/cf-cli-resource
     tag: latest
 
 resources:
@@ -25,7 +25,7 @@ resources:
   type: maven-resource
   source:
     url: https://repo.spring.io/libs-release
-    artifact: org.springframework.cloud:spring-cloud-dataflow-server-cloudfoundry:jar::1.1.1.RELEASE
+    artifact: org.springframework.cloud:spring-cloud-dataflow-server-cloudfoundry:jar::1.2.0.RELEASE
 
 - name: pcf-env
   type: cf-cli-resource
@@ -34,6 +34,8 @@ resources:
     username: {{CF_USER}}
     password: {{CF_PASSWORD}}
     skip_cert_check: true
+    org: {{CF_ORG}}
+    space: {{CF_SPACE}}
 
 - name: pcf-env-params
   type: cf
@@ -60,28 +62,23 @@ jobs:
   - aggregate:
     - get: scdf-demo
     - get: scdf-server
-  - put: cf-create-service
+  - put: cf-create-services
     resource: pcf-env
     params:
-      create_service:
+      commands:
+      - command: create-service
         org: {{CF_ORG}}
         space: {{CF_SPACE}}
         service: {{DB_SERVICE_NAME}}
         plan: {{DB_SERVICE_PLAN}}
         service_instance: scdf-mysql
-  - put: cf-create-service
-    resource: pcf-env
-    params:
-      create_service:
+      - command: create-service
         org: {{CF_ORG}}
         space: {{CF_SPACE}}
         service: {{RABBIT_SERVICE_NAME}}
         plan: {{RABBIT_SERVICE_PLAN}}
         service_instance: scdf-rabbit
-  - put: cf-create-service
-    resource: pcf-env
-    params:
-      create_service:
+      - command: create-service
         org: {{CF_ORG}}
         space: {{CF_SPACE}}
         service: {{REDIS_SERVICE_NAME}}
@@ -113,48 +110,25 @@ jobs:
   - put: cf-push
     resource: pcf-env
     params:
-      push:
-        org: {{CF_ORG}}
-        space: {{CF_SPACE}}
-        app_name: bubble-chart
-        manifest: scdf-demo/ci/bubble-manifest.yml
+      command: push
+      app_name: bubble-chart
+      manifest: scdf-demo/ci/bubble-manifest.yml
 
 - name: tear-down-scdf-demo
   plan:
-  - put: cf-delete
+  - put: cf-delete-everything
     resource: pcf-env
     params:
-      delete:
-        org: {{CF_ORG}}
-        space: {{CF_SPACE}}
+      commands:
+      - command: delete
         app_name: dataflow-server
         delete_mapped_routes: true
-  - put: cf-delete
-    resource: pcf-env
-    params:
-      delete:
-        org: {{CF_ORG}}
-        space: {{CF_SPACE}}
+      - command: delete
         app_name: bubble-chart
         delete_mapped_routes: true
-  - put: cf-delete-service
-    resource: pcf-env
-    params:
-      delete_service:
-        org: {{CF_ORG}}
-        space: {{CF_SPACE}}
+      - command: delete-service
         service_instance: scdf-mysql
-  - put: cf-delete-service
-    resource: pcf-env
-    params:
-      delete_service:
-        org: {{CF_ORG}}
-        space: {{CF_SPACE}}
+      - command: delete-service
         service_instance: scdf-rabbit
-  - put: cf-delete-service
-    resource: pcf-env
-    params:
-      delete_service:
-        org: {{CF_ORG}}
-        space: {{CF_SPACE}}
+      - command: delete-service
         service_instance: scdf-redis
