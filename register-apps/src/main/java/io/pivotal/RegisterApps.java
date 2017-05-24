@@ -72,9 +72,9 @@ public class RegisterApps {
 
         AppRegistryOperations appRegistryOperations = dataFlowTemplate.appRegistryOperations();
         appRegistryOperations.register("nlp", ApplicationType.processor,
-                NLP_PROCESSOR_URI, true);
+                NLP_PROCESSOR_URI, null, true);
         appRegistryOperations.register("redis", ApplicationType.sink,
-                REDIS_SINK_URI, true);
+                REDIS_SINK_URI, null, true);
 
         Resource resource = new ClassPathResource("appStarters.properties");
         Properties properties = PropertiesLoaderUtils.loadProperties(resource);
