@@ -25,7 +25,7 @@ resources:
   type: maven-resource
   source:
     url: https://repo.spring.io/libs-release
-    artifact: org.springframework.cloud:spring-cloud-dataflow-server-cloudfoundry:jar::1.2.0.RELEASE
+    artifact: org.springframework.cloud:spring-cloud-dataflow-server-cloudfoundry:jar::1.2.1.RELEASE
 
 - name: pcf-env
   type: cf-cli-resource

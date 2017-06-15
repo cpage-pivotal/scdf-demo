@@ -1,0 +1,25 @@
+---
+# Target PCF environment where you will be running the demo
+CF_API: https://api.sys.pcf.corby.cc
+CF_USER: corby
+CF_PASSWORD: page
+CF_ORG: pivotal
+CF_SPACE: workshop
+CF_SKIP_SSL: false
+
+# MySQL Service used by the SCDF Server
+DB_SERVICE_NAME: p-mysql
+DB_SERVICE_PLAN: 100mb
+
+# RabbitMQ Service used by the SCDF Server
+RABBIT_SERVICE_NAME: p-rabbitmq
+RABBIT_SERVICE_PLAN: standard
+
+# Redis Service used by the SCDF Server
+REDIS_SERVICE_NAME: p-redis
+REDIS_SERVICE_PLAN: shared-vm
+
+# Parameters specific to the deployed stream apps
+CF_DOMAIN: apps.pcf.corby.cc
+CF_BUILDPACK: java_buildpack_offline
+CF_APP_NAME_PREFIX: demo
