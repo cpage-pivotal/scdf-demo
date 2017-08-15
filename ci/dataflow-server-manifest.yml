@@ -3,6 +3,6 @@ applications:
 - name: dataflow-server
   random-route: true
   memory: 1G
-  path: ../../scdf-server/spring-cloud-dataflow-server-cloudfoundry-1.2.1.RELEASE.jar
+  path: ../../scdf-server/spring-cloud-dataflow-server-cloudfoundry-1.2.3.RELEASE.jar
   services: 
   - scdf-mysql
