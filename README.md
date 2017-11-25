@@ -9,9 +9,9 @@ The instructions below will assume your are running in the hosted **S1Pdemo14** 
 
 # Prerequisites
 
-1. Install the Spring Cloud Dataflow Shell on your local machine. You can download the 1.1.4 version of the shell here: https://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-shell/1.2.0.RELEASE/spring-cloud-dataflow-shell-1.2.0.RELEASE.jar
+1. Install the Spring Cloud Dataflow Shell on your local machine. You can download the 1.2.3 version of the shell here: https://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-shell/1.2.3.RELEASE/spring-cloud-dataflow-shell-1.2.4.RELEASE.jar
 
-   You can run the shell with `java -jar spring-cloud-dataflow-shell-1.2.0.RELEASE.jar`
+   You can run the shell with `java -jar spring-cloud-dataflow-shell-1.2.3.RELEASE.jar`
 
 2. Obtain your Twitter API credentials, if you don't already have them. You can generate these credentials at https://dev.twitter.com
 
