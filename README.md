@@ -9,7 +9,7 @@ The instructions below will assume your are running in the hosted **S1Pdemo14** 
 
 # Prerequisites
 
-1. Install the Spring Cloud Dataflow Shell on your local machine. You can download the 1.2.3 version of the shell here: https://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-shell/1.2.3.RELEASE/spring-cloud-dataflow-shell-1.2.4.RELEASE.jar
+1. Install the Spring Cloud Dataflow Shell on your local machine. You can download the 1.2.3 version of the shell here: https://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-shell/1.2.3.RELEASE/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar
 
    You can run the shell with `java -jar spring-cloud-dataflow-shell-1.2.3.RELEASE.jar`
 
